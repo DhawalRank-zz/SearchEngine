@@ -2,6 +2,8 @@ package searchengine;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -15,13 +17,16 @@ import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import searchengine.utils.SearchEngineUtils;
+
 public class Searcher {
 	final static String FIELD_PATH = getConfig("FIELD_PATH");
 	final static String FIELD_CONTENTS = getConfig("FIELD_CONTENTS");
 	final static String INDEX_DIRECTORY = getConfig("INDEX_DIRECTORY");
 
-	public static void searchIndex(String keyword){
+	public static List<String> searchIndex(String keyword){
 		System.out.println("Searching..");
+		List<String> searchResults = new ArrayList<String>();
 		try{
 			Analyzer analyzer = new StandardAnalyzer();
 		    Path pathToIndex =Paths.get(INDEX_DIRECTORY);
@@ -37,8 +42,8 @@ public class Searcher {
 	            ScoreDoc sd = scoreDocs[n];
 	            int docId = sd.doc;
 	            Document d = isearcher.doc(docId);
-	            String path = d.get("path");
-	            System.out.println(path);
+	            String path = d.get(FIELD_PATH);
+	            searchResults.add(path);
 	        }
 		    ireader.close();
 		    directory.close();
@@ -46,6 +51,7 @@ public class Searcher {
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		return searchResults;
 	}
 	
 	public static void main(String a[]){

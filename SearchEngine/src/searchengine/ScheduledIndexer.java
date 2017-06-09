@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.regex.Pattern;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -17,6 +18,8 @@ import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 
+import searchengine.utils.SearchEngineUtils;
+
 public class ScheduledIndexer {
 
 	final static String FILES_TO_INDEX_DIRECTORY = getConfig("FILES_TO_INDEX_DIRECTORY");
@@ -24,7 +27,6 @@ public class ScheduledIndexer {
 	final static String FIELD_PATH = getConfig("FIELD_PATH");
 	final static String FIELD_CONTENTS = getConfig("FIELD_CONTENTS");
 	final static String HTML_DIRECTORY = getConfig("HTML_DIRECTORY");
-	final static String HTML_TO_TEXT_DIRECTORY = getConfig("HTML_TO_TEXT_DIRECTORY");
 	
 	public static void main(String[] args) {
 		createIndex();
@@ -45,7 +47,12 @@ public class ScheduledIndexer {
 			for (File file : files){
 			    Document document = new Document();
 			    String path = file.getCanonicalPath();
-				document.add(new Field(FIELD_PATH, path, TextField.TYPE_STORED));
+			    String pattern = Pattern.quote(System.getProperty("file.separator"));
+			    String[] pathArray = path.split(pattern);
+			    pathArray[pathArray.length-1] = pathArray[pathArray.length-1].replaceFirst("(.txt)$", ".htm");
+			    pathArray[pathArray.length-2] = pathArray[pathArray.length-2].replace("filesToIndex", "WebPages");
+			    String htmlPath = "/" + pathArray[pathArray.length-2] + "/" + pathArray[pathArray.length-1];
+			    document.add(new Field(FIELD_PATH, htmlPath, TextField.TYPE_STORED));
 				String content = "";
 				BufferedReader br = new BufferedReader(new FileReader(file));
 				String currentLine = br.readLine();

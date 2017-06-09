@@ -13,6 +13,8 @@ import javax.swing.text.html.parser.ParserDelegator;
 
 import org.jsoup.Jsoup;
 
+import searchengine.utils.SearchEngineUtils;
+
 
 public class ScheduledHTMLtoText extends HTMLEditorKit.ParserCallback {
 	StringBuffer s;
@@ -34,9 +36,9 @@ public class ScheduledHTMLtoText extends HTMLEditorKit.ParserCallback {
 
 	public static void runHtmltoText(){
 		try {  
-			System.out.println("Converting HTML to test. This may take sometime.");
+			System.out.println("Converting HTML to text. This may take sometime.");
 			File folder = new File(HTML_DIRECTORY);
-
+			System.out.println(folder.getAbsolutePath());
 			for(File file : folder.listFiles())
 			{
 				if(!file.isDirectory()){
