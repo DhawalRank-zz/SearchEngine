@@ -17,6 +17,7 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.jsoup.Jsoup;
 
 import searchengine.utils.SearchEngineUtils;
 
@@ -27,6 +28,7 @@ public class ScheduledIndexer {
 	final static String FIELD_PATH = getConfig("FIELD_PATH");
 	final static String FIELD_CONTENTS = getConfig("FIELD_CONTENTS");
 	final static String HTML_DIRECTORY = getConfig("HTML_DIRECTORY");
+	final static String DOC_TITLE = getConfig("DOC_TITLE");
 	
 	public static void main(String[] args) {
 		createIndex();
@@ -61,6 +63,7 @@ public class ScheduledIndexer {
 					currentLine = br.readLine();
 				}
 				br.close();
+				document.add(new Field(FIELD_CONTENTS, Jsoup.parse(content).title(), TextField.TYPE_STORED));
 				document.add(new Field(FIELD_CONTENTS, content, TextField.TYPE_STORED));
 				iwriter.addDocument(document);			
 			}

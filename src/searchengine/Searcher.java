@@ -23,6 +23,7 @@ public class Searcher {
 	final static String FIELD_PATH = getConfig("FIELD_PATH");
 	final static String FIELD_CONTENTS = getConfig("FIELD_CONTENTS");
 	final static String INDEX_DIRECTORY = getConfig("INDEX_DIRECTORY");
+	final static String DOC_TITLE = getConfig("DOC_TITLE");
 
 	public static List<String> searchIndex(String keyword){
 		System.out.println("Searching..");
@@ -34,6 +35,7 @@ public class Searcher {
 		    DirectoryReader ireader = DirectoryReader.open(directory);
 		    IndexSearcher isearcher = new IndexSearcher(ireader);
 		    QueryParser parser = new QueryParser(FIELD_CONTENTS, analyzer);
+		    parser.setDefaultOperator(QueryParser.Operator.AND);
 		    Query query = parser.parse(keyword);
 		    TopDocs hits = isearcher.search(query, 1000);
 		    ScoreDoc[] scoreDocs = hits.scoreDocs;
@@ -41,8 +43,11 @@ public class Searcher {
 		    for (int n = 0; n < scoreDocs.length; ++n) {
 	            ScoreDoc sd = scoreDocs[n];
 	            int docId = sd.doc;
+	            System.out.println(sd.score);
 	            Document d = isearcher.doc(docId);
 	            String path = d.get(FIELD_PATH);
+	            String title = d.get(DOC_TITLE);
+	            System.out.println(title);
 	            searchResults.add(path);
 	        }
 		    ireader.close();
