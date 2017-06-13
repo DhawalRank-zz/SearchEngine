@@ -1,5 +1,2 @@
 target/
 .settings
-WEB-INF/web.xml
-src/SearchEngine.properties
-bin/SearchEngine.properties
