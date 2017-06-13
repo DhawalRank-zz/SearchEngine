@@ -22,7 +22,6 @@ public class Search extends HttpServlet {
      */
     public Search() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -38,7 +37,6 @@ public class Search extends HttpServlet {
 			request.setAttribute("searchResults", searchResults);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		long stopTime = System.currentTimeMillis();

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>  
 	<%@ page import="java.util.List" %>
 	<div style="padding-left: 0.5%; padding-top: 0.7%">
-	<form method="get" id="searchResultForm" action="/SearchEngine/Search">
+	<form method="get" id="searchResultForm" action="Search">
 		<div class="field has-addons" style="width: 57%;">
 		  <p class="control is-expanded">
 		    <input class="input" type="text" id="searchQuery" name="searchQuery" value="<%= request.getParameter("searchQuery") %>" placeholder="What are you looking for Homey!">

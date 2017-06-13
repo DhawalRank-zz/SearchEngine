@@ -7,7 +7,7 @@
 	      <article class="tile is-child box">
 	        <p class="title">Search It!<p></p></p>
 	        <p class="subtitle">
-			  <form method="get" action="/SearchEngine/Search">
+			  <form method="get" action="Search">
 			  <br/>
 	            <div class="field">
 		   	      <p class="control has-icons-left has-icons-right">

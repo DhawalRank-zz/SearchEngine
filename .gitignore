@@ -1,2 +1,3 @@
 /target/
 .settings
+/WEB-INF/web.xml
