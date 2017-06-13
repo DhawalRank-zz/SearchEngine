@@ -4,10 +4,12 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Properties;
 
+import javax.naming.InitialContext;
+
 public class SearchEngineUtils {
 	static Properties props = new Properties();
 	private static PrintStream out =  System.out;	
-	private static final String CONFIG_FILE = "SearchEngine.properties";
+	private static final String CONFIG_FILE = "SearchEngine-" + getEnv() +".properties";
 	
 	public static String getConfig(String key){
 		String keyString="";
@@ -31,5 +33,12 @@ public class SearchEngineUtils {
 			out.print("ERROR: getConfig(key): Resource not found. Key= " + key + " | Exception= " + e.toString());			
 			return "";
 		}		
+	}
+	public static String getEnv() {
+		try {
+			return (String) new InitialContext().lookup("java:comp/env/environment");
+		} catch (Exception e) {
+			return null;
+		}
 	}
 }
