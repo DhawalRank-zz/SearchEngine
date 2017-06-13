@@ -36,7 +36,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
-        <init-param>
+    <init-param>
       <param-name>debug</param-name>
       <param-value>0</param-value>
     </init-param>
