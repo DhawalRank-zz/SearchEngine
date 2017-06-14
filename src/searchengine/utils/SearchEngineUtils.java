@@ -13,6 +13,7 @@ public class SearchEngineUtils {
 	
 	public static String getConfig(String key){
 		String keyString="";
+		out.println(getEnv());
 		try {
 
 			if(props==null || props.isEmpty()){
