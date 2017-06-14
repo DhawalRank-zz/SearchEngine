@@ -43,11 +43,10 @@ public class Searcher {
 		    for (int n = 0; n < scoreDocs.length; ++n) {
 	            ScoreDoc sd = scoreDocs[n];
 	            int docId = sd.doc;
-	            System.out.println(sd.score);
 	            Document d = isearcher.doc(docId);
 	            String path = d.get(FIELD_PATH);
 	            String title = d.get(DOC_TITLE);
-	            System.out.println(title);
+	            //System.out.println(title);
 	            searchResults.add(path);
 	        }
 		    ireader.close();

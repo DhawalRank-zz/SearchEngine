@@ -17,7 +17,6 @@ public class SearchEngineUtils {
 
 			if(props==null || props.isEmpty()){
 				out.println("loading properties...");
-				out.println(getEnv());
 				InputStream is = SearchEngineUtils.class.getClassLoader().getResourceAsStream(CONFIG_FILE);
 		        props.load(is);
 		        out.println("properties loaded successfully");
