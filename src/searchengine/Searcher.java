@@ -45,7 +45,7 @@ public class Searcher {
 	            int docId = sd.doc;
 	            Document d = isearcher.doc(docId);
 	            String path = d.get(FIELD_PATH);
-	            String title = d.get(DOC_TITLE);
+	            //String title = d.get(DOC_TITLE);
 	            //System.out.println(title);
 	            searchResults.add(path);
 	        }
