@@ -19,7 +19,7 @@
 
     <!-- Default set of monitored resources. If one of these changes, the    -->
     <!-- web application will be reloaded.                                   -->
-    <Environment name="environment" value="DEV" type="java.lang.String" override="false" />
+    <Environment name="environment" value="PROD" type="java.lang.String" override="false" />
     <!-- <WatchedResource>WEB-INF/web.xml</WatchedResource>
     <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource> -->
 
