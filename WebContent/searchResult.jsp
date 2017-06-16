@@ -20,9 +20,11 @@
 	<% 
 		int maxHitsPerPage = 10; 
 		List<String> searchResults = (List<String>)request.getAttribute("searchResults");
+		List<String> searchResultsContents = (List<String>)request.getAttribute("searchResultsContents");
+
 	%>
 	<p class="title is-6">About <%= searchResults.size() %> results (<%= request.getAttribute("totalTime") %> seconds, <%= request.getAttribute("actualMemUsed") %>mb used.)</p>
-	<div id="searchResultsDiv">
+	<div id="searchResultsDiv" style="width: 70%">
 	
 	</div>
 	<br />
@@ -59,7 +61,8 @@
 	</div>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/SetPage.js"></script>
 	<script type="text/javascript">
-		var a = [<% for (int i = 0; i < searchResults.size(); i++) { %>"${pageContext.request.contextPath}<%= searchResults.get(i) %>"<%= i + 1 < searchResults.size() ? ",":"" %><% } %>];
+		var links = [<% for (int i = 0; i < searchResults.size(); i++) { %>"${pageContext.request.contextPath}<%= searchResults.get(i) %>"<%= i + 1 < searchResults.size() ? ",":"" %><% } %>];
+		var contents = [<% for (int i = 0; i < searchResultsContents.size(); i++) { %>"<%= searchResultsContents.get(i).toString() %>"<%= i + 1 < searchResultsContents.size() ? ",":"" %><% } %>];
 		var maxHitsPerPage = <%= maxHitsPerPage %>;
 		init();
 	</script> 

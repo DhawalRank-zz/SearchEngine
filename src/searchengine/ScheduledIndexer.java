@@ -11,7 +11,9 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.TextField;
+import org.apache.lucene.index.IndexOptions;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
@@ -63,7 +65,6 @@ public class ScheduledIndexer {
 					currentLine = br.readLine();
 				}
 				br.close();
-				document.add(new Field(FIELD_CONTENTS, Jsoup.parse(content).title(), TextField.TYPE_STORED));
 				document.add(new Field(FIELD_CONTENTS, content, TextField.TYPE_STORED));
 				iwriter.addDocument(document);			
 			}

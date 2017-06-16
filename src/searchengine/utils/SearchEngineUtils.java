@@ -8,10 +8,12 @@ import javax.naming.InitialContext;
 
 public class SearchEngineUtils {
 	static Properties props = new Properties();
-	private static PrintStream out =  System.out;	
-	private static final String CONFIG_FILE = "SearchEngine-" + getEnv() +".properties";
-	
+	private static PrintStream out =  System.out;
+	private static String CONFIG_FILE = "SearchEngine-DEV.properties";
 	public static String getConfig(String key){
+		if(getEnv() != null){
+			CONFIG_FILE = "SearchEngine-" + getEnv() +".properties";
+		}	
 		String keyString="";
 		try {
 

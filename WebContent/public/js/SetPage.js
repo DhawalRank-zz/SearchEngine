@@ -15,16 +15,16 @@
 		var destAId = document.getElementById("searchResultA" + destPage);
 		var currAId = document.getElementById("searchResultA" + currPage);
 		if(destAId){
-			console.log(2);
 			currAId.setAttribute("class", "pagination-link");
 			destAId.setAttribute("class", "pagination-link is-current");
 			searchResultsDiv.innerHTML = "";
 			var startIndex = (maxHitsPerPage * destPage);
-			var endIndex = ( a.length >= 10) ? (startIndex + (maxHitsPerPage - 1)) :  ( a.length - 1 );
+			var endIndex = ( links.length >= 10) ? (startIndex + (maxHitsPerPage - 1)) :  ( links.length - 1 );
 			for (var i = startIndex; i <= endIndex; i++){
-				if(a[i] !== undefined){
+				if(links[i] !== undefined){
+					var title = links[i].replace(/\/SearchEngine\/WebPages\//, "").replace(/\.[^/.]+$/, "");
 					searchResultsDiv.innerHTML  = searchResultsDiv.innerHTML + 
-						"<a href='" + a[i] + "'style='color: blue;'>" + a[i] + "</a><br/>";
+						"<a href='" + links[i] + "'style='color: blue;'>" + title + "</a><br/>" + contents[i] + "<br/><br/><br/>";
 						currPage = destPage;
 				}
 			}

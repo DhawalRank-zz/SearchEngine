@@ -45,7 +45,6 @@ public class ScheduledHTMLtoText extends HTMLEditorKit.ParserCallback {
 					String name = file.getName();
 					String[] fileName = name.split("\\.htm");
 					String outFileName = fileName[0];
-					System.out.println(outFileName);
 					BufferedReader reader = new BufferedReader(new FileReader(file));
 					String inputLine;
 					String finalContents = "";

@@ -1,11 +1,18 @@
 package searchengine;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.search.highlight.Formatter;
+import org.apache.lucene.search.highlight.Highlighter;
+import org.apache.lucene.search.highlight.InvalidTokenOffsetsException;
+import org.apache.lucene.search.highlight.QueryScorer;
+import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
+import org.apache.lucene.search.highlight.SimpleSpanFragmenter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -24,10 +31,13 @@ public class Searcher {
 	final static String FIELD_CONTENTS = getConfig("FIELD_CONTENTS");
 	final static String INDEX_DIRECTORY = getConfig("INDEX_DIRECTORY");
 	final static String DOC_TITLE = getConfig("DOC_TITLE");
+	final static int FRAG_SIZE = Integer.parseInt(getConfig("FRAG_SIZE"));
+	private static List<String> searchResults = new ArrayList<String>();
+	private static List<String> searchResultsContents = new ArrayList<String>();
 
-	public static List<String> searchIndex(String keyword){
+	
+	public static void searchIndex(String keyword){
 		System.out.println("Searching..");
-		List<String> searchResults = new ArrayList<String>();
 		try{
 			Analyzer analyzer = new StandardAnalyzer();
 		    Path pathToIndex =Paths.get(INDEX_DIRECTORY);
@@ -44,9 +54,9 @@ public class Searcher {
 	            ScoreDoc sd = scoreDocs[n];
 	            int docId = sd.doc;
 	            Document d = isearcher.doc(docId);
+	            String docContents = d.get(FIELD_CONTENTS);
+	            searchResultsContents.add(getHighlightedField(query, analyzer, FIELD_CONTENTS, docContents));
 	            String path = d.get(FIELD_PATH);
-	            //String title = d.get(DOC_TITLE);
-	            //System.out.println(title);
 	            searchResults.add(path);
 	        }
 		    ireader.close();
@@ -55,16 +65,39 @@ public class Searcher {
 		catch (Exception e){
 			e.printStackTrace();
 		}
-		return searchResults;
 	}
 	
 	public static void main(String a[]){
 		
 		//this assumes that files are present in index directory
-		searchIndex("foo");
+		searchIndex("w3");
 	}
 	
 	private static String getConfig(String key) {
 		return SearchEngineUtils.getConfig(key);
 	}
+	
+	public static List<String> getsearchResults(){
+		return searchResults;
+	}
+	
+	public static void setSearchResultsAndContents(String keyword){
+		searchResults = new ArrayList<String>();
+		searchResultsContents = new ArrayList<String>();
+		searchIndex(keyword);
+	}
+	
+	public static List<String> getsearchResultsContents(){
+		return searchResultsContents;
+	}
+	
+    public static String getHighlightedField(Query query, Analyzer analyzer, String fieldName, String fieldValue) throws IOException, InvalidTokenOffsetsException
+    {
+         Formatter formatter = new SimpleHTMLFormatter();
+         QueryScorer queryScorer = new QueryScorer(query);
+         Highlighter highlighter = new Highlighter(formatter, queryScorer);
+         highlighter.setTextFragmenter(new SimpleSpanFragmenter(queryScorer, FRAG_SIZE));
+         highlighter.setMaxDocCharsToAnalyze(Integer.MAX_VALUE);
+         return highlighter.getBestFragment(analyzer, fieldName, fieldValue).replaceAll("\"", "'") + ("...");
+     }
 }

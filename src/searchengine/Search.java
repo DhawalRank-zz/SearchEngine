@@ -32,9 +32,14 @@ public class Search extends HttpServlet {
 		String searchQuery = request.getParameter("searchQuery");
 	    long startTime = System.currentTimeMillis();
 		List<String> searchResults = new ArrayList<String>();
+		List<String> searchResultsContents = new ArrayList<String>();
+
 		try {
-			searchResults = IndexandSearch.run(searchQuery);
+			IndexandSearch.run(searchQuery);
+			searchResults = IndexandSearch.getSearchResults();
+			searchResultsContents = IndexandSearch.getSearchResultsContents();
 			request.setAttribute("searchResults", searchResults);
+			request.setAttribute("searchResultsContents", searchResultsContents);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -48,6 +48,7 @@
     <url-pattern>/public/*</url-pattern>
     <url-pattern>/indexDirectory/*</url-pattern>
     <url-pattern>/filesToIndex/*</url-pattern>
+    <url-pattern>/WebPages/*</url-pattern>
   </servlet-mapping>
   <session-config>
     <session-timeout>30</session-timeout>
