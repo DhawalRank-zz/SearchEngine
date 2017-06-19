@@ -61,7 +61,7 @@
 	</div>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/public/js/SetPage.js"></script>
 	<script type="text/javascript">
-		var links = [<% for (int i = 0; i < searchResults.size(); i++) { %>"${pageContext.request.contextPath}<%= searchResults.get(i) %>"<%= i + 1 < searchResults.size() ? ",":"" %><% } %>];
+		var links = [<% for (int i = 0; i < searchResults.size(); i++) { %>"<%= searchResults.get(i) %>"<%= i + 1 < searchResults.size() ? ",":"" %><% } %>];
 		var contents = [<% for (int i = 0; i < searchResultsContents.size(); i++) { %>"<%= searchResultsContents.get(i).toString() %>"<%= i + 1 < searchResultsContents.size() ? ",":"" %><% } %>];
 		var maxHitsPerPage = <%= maxHitsPerPage %>;
 		init();

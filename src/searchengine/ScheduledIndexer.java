@@ -55,7 +55,8 @@ public class ScheduledIndexer {
 			    String[] pathArray = path.split(pattern);
 			    pathArray[pathArray.length-1] = pathArray[pathArray.length-1].replaceFirst("(.txt)$", ".htm");
 			    pathArray[pathArray.length-2] = pathArray[pathArray.length-2].replace("filesToIndex", "WebPages");
-			    String htmlPath = "/" + pathArray[pathArray.length-2] + "/" + pathArray[pathArray.length-1];
+			    String htmlPath = pathArray[pathArray.length-2] + "/" + pathArray[pathArray.length-1];
+			    System.out.println(htmlPath);
 			    document.add(new Field(FIELD_PATH, htmlPath, TextField.TYPE_STORED));
 				String content = "";
 				BufferedReader br = new BufferedReader(new FileReader(file));

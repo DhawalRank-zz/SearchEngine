@@ -22,7 +22,7 @@
 			var endIndex = ( links.length >= 10) ? (startIndex + (maxHitsPerPage - 1)) :  ( links.length - 1 );
 			for (var i = startIndex; i <= endIndex; i++){
 				if(links[i] !== undefined){
-					var title = links[i].replace(/\/SearchEngine\/WebPages\//, "").replace(/\.[^/.]+$/, "");
+					var title = links[i].replace(/WebPages\//, "").replace(/\.[^/.]+$/, "");
 					searchResultsDiv.innerHTML  = searchResultsDiv.innerHTML + 
 						"<a href='" + links[i] + "'style='color: blue;'>" + title + "</a><br/>" + contents[i] + "<br/><br/><br/>";
 						currPage = destPage;
